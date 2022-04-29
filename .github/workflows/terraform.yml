@@ -110,12 +110,17 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run:
-        terraform apply -var-file="../environments/${{env.env-name}}/tf_${{env.env-name}}.tfvars"
+        # terraform apply -var-file="../environments/${{env.env-name}}/tf_${{env.env-name}}.tfvars"
+        echo 'hello'
       working-directory: ${{env.tf-directory}}
       
     - name: Terraform destroy
       run:
         terraform plan -destroy -out=destroy.tfplan -var-file="../environments/${{env.env-name}}/tf_${{env.env-name}}.tfvars"
+      working-directory: ${{env.tf-directory}}
+
+    - name: Terraform destroy
+      run:
         terraform apply destroy.tfplan
       working-directory: ${{env.tf-directory}}
 
