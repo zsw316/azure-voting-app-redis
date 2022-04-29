@@ -116,12 +116,7 @@ jobs:
       
     - name: Terraform destroy
       run:
-        terraform plan -destroy -out=destroy.tfplan -var-file="../environments/${{env.env-name}}/tf_${{env.env-name}}.tfvars"
-      working-directory: ${{env.tf-directory}}
-
-    - name: Terraform destroy
-      run:
-        terraform apply destroy.tfplan
+        terraform apply -destroy -auto-approve -var-file="../environments/${{env.env-name}}/tf_${{env.env-name}}.tfvars"
       working-directory: ${{env.tf-directory}}
 
   qa_terraform:
